@@ -1,0 +1,363 @@
+\documentclass[12pt]{article}
+
+\usepackage{setspace}
+
+\usepackage{xcolor, amsmath, amsfonts, amssymb, graphicx, color, fancyhdr, lipsum, scalerel, stackengine, mathrsfs, tikz-cd}
+\usepackage[amsthm]{ntheorem}
+\usepackage[mathscr]{euscript}
+%set margins
+\usepackage{fullpage}
+
+%header stuff
+\setlength{\headsep}{24pt}  % space between header and text
+\pagestyle{fancy}     % set pagestyle for document
+\lhead{ {\it Complex Analysis -- Quarter 1} } % put text in header (left side)
+\rhead{Nico Courts} % put text in header (right side)
+\cfoot{\it p. \thepage}
+\setlength{\headheight}{15pt}
+\allowdisplaybreaks
+
+%functions useful for formatting:
+%GCD
+\newcommand*{\G}[1]{
+\text{gcd}(#1)
+}
+%Set of Integers
+\newcommand*{\Z}{
+\mathbb{Z}
+}
+%Set of Natural Numbers
+\newcommand*{\N}{
+\mathbb{N}
+}
+%Set of Real Numbers
+\newcommand*{\R}{
+\mathbb{R}
+}
+%Set of Complex Numbers
+\newcommand*{\C}{
+\mathbb{C}
+}
+%Field
+\newcommand*{\F}{
+\mathbb{F}
+}
+%Rationals
+\newcommand*{\Q}{
+\mathbb{Q}
+}
+
+%Section break
+\newcommand*{\brk}{
+\rule{2in}{.1pt}
+}
+
+%stupid division...
+\newcommand\showdiv[1]{\overline{\smash{\hstretch{.5}{)}\mkern-3.2mu\hstretch{.5}{)}}#1}}
+\newcommand\ph[1]{\textcolor{white}{#1}}
+
+%raise that Chi!
+\DeclareRobustCommand{\Chi}{{\mathpalette\irchi\relax}}
+\newcommand{\irchi}[2]{\raisebox{\depth}{$#1\chi$}} 
+
+%indexed set
+\newcommand*{\IS}{
+	\ensuremath{
+		\mathcal{I}
+	}
+}
+
+%Topology
+\newcommand*{\TOP}{
+	\ensuremath{
+		\mathscr{T}
+	}
+}
+
+%Image/Imaginary part
+\let\Im\relax
+\DeclareMathOperator{\Im}{Im}
+\let\Re\relax
+\DeclareMathOperator{\Re}{Re}
+
+%partials
+\newcommand{\pd}[1]{\frac{\partial}{\partial #1}}
+
+%fix tilde
+\let\tilde\relax
+\newcommand*{\tilde}[1]{\widetilde{#1}}
+
+\newtheorem{lem}{Lemma}
+\newtheorem{thm}{Theorem}
+
+%vectors
+\newcommand*{\bx}{\ensuremath{\mathbf{x}}}
+\newcommand*{\by}{\ensuremath{\mathbf{y}}}
+\newcommand*{\vecf}{\ensuremath{\mathbf{f\,}}}
+
+\onehalfspacing
+\begin{document}
+%make the title page
+\title{534 -- Complex Analysis -- HW \#2\vspace{-2ex}}
+\author{Nico Courts}
+\date{Due: 10/18/17}
+\maketitle
+
+%begin problems
+
+\section*{Problem 1}
+	\begin{spacing}{1}
+		\textbf{(Schlag 1.5)} Find a M\"obius transformation that takes $\{|z-i|<1\}$ onto $\{|z-2|<3\}$. Do the same for $\{|z+i|<2\}$ onto $\{x+y\ge 2\}$. Is there a M\"obius transformation that takes
+		\[\{|z-i|<1\}\cap\{|z-1|<1\}\]
+		onto the first quadrant? How about $\{|z-2i|<2\}\cap\{|z-1|<1\}$ and $\{|z-\sqrt{3}|<2\}\cap\{|z+\sqrt{3}|<2\}$ onto the first quadrant?
+	\end{spacing}	
+	\noindent\hrulefill	
+	
+	Notice that, since any triple of points defines a circle and the fact that M\"obius transformations take circles to circles, it suffices in each case (if such a transformation exists) to take triple of distinct points on one circle and map them to a distinct triple of points on the other. To be completely clear, this is because the image of the circle in the domain would be a circle going through the three points in the codomain, and there is only one such circle.
+	
+	Let $\vec a=(0,1+i,2)$ be a triple of points on $\{|z+i|<2\}$ and $\vec b=(5,2+3i,-1)$ and let $\vec c=(0,1,\infty)$. Note that I chose the ordering of the points such that the orientation on the two circles are the same (counter-clockwise). This is required (using the orientation-preserving nature of these maps) to ensure that the inside of the circle is mapped to the inside. 
+	
+	Following the notation in Schlag, let $T_A$ be the M\"obius transformation taking $\vec a$ to $\vec c$ and $A\in PSL_2(\C)$ be the corresponding matrix. Let $T_B$ and $B$ represent the transformation taking $\vec b\mapsto\vec c$. Then using the method described in class, we can write
+	\[T_A=\left(\frac{-1+i}{1+i}\right)\frac{z}{z-2}=\frac{iz}{z-2},\qquad A=\begin{pmatrix}
+		i&0\\1&-2
+	\end{pmatrix}\]
+	and 
+	\[T_B=\left(\frac{1+i}{-1+i}\right)\frac{z-5}{z+1}=\frac{-iz+5i}{z+1},\qquad B=\begin{pmatrix}
+		-i & 5i\\ 1&1
+	\end{pmatrix},\qquad B^{-1}=\begin{pmatrix}
+		-1&5i\\1&i
+	\end{pmatrix}\]
+	where the inverse is computed using the formula for the inverse of $2\times 2$ matrices, keeping in mind that we modded out by scalars to get to $PSL_2(\C)$. But then the map we want is $T_B^{-1}\circ T_A$, so to find it we can compute the matrix product
+	\[B^{-1}A=\begin{pmatrix}
+		-1&5i\\1&i
+	\end{pmatrix}\begin{pmatrix}
+	i&0\\1&-2
+	\end{pmatrix}=\begin{pmatrix}
+	2&-5\\1&-1
+	\end{pmatrix}\quad\Rightarrow\quad T_{B}^{-1}\circ T_A=\frac{2z-5}{z-1}\]
+	which we can relatively easily confirm takes $\vec a\mapsto\vec b$ and thus (as a composition of M\"obius transformations) the M\"obius transformation desired.
+	
+	\brk
+	
+	For the second problem I will reuse the same notation but be less verbose. This time $\vec a=(-i,2+i,3i)$ and $\vec b=(2i,1+i,2)$ where again the ordered triples will ensure that the inside of the circle (``on the left'' according to the induced orientation given by this ordering) will be mapped to the region above the line $y=-x+2$ (``on the left'' again). Then compute
+	\[T_A=\left(\frac{2-2i}{2+2i}\right)\frac{z+i}{z-3i}=\frac{-iz-i}{z-3i},\quad A=\begin{pmatrix}
+		-i&-i\\1&-3
+	\end{pmatrix}\]
+	and
+	\[T_B=\left(\frac{1+i-2}{1+i-2i}\right)\frac{z-2i}{z-2}=\frac{-z+2i}{z-2},\quad B=\begin{pmatrix}
+		-1&2i\\1&-2
+	\end{pmatrix},\quad B^{-1}=\begin{pmatrix}
+	2&2i\\1&1
+	\end{pmatrix}\]
+	then computing:
+	\[B^{-1}A=\begin{pmatrix}
+	2&2i\\1&1
+	\end{pmatrix}\begin{pmatrix}
+	-i&-i\\1&-3
+	\end{pmatrix}=\begin{pmatrix}
+		0&-8i\\1-i&-3-i
+	\end{pmatrix}\quad\Rightarrow\quad T_B^{-1}\circ T_A=\frac{-8i}{(1-i)z-(3+i)}\]
+	takes $\vec a\mapsto\vec b$ with the proper orientation, so this is the map we want.
+	
+	\brk
+	
+	Let $T$ be the M\"obius transformation taking the triple $(2i,0,1+i)$ to $(0,1,\infty)$. We can write this explicitly as
+	\[T=\left(\frac{i-1}{2}\right)\frac{z-2i}{z-i-1}.\]
+	We know from experience that this is the M\"obius transformation taking $\{|z-i|= 1\}$ to $\R\cup\{\infty\}$ with the inside of the circle mapping to the upper half plane.
+	
+	But then consider that M\"obius transformations preserve angles and the two circles meet at 0 in a right angle. This means that (since $i+1\mapsto \infty$) the circle $\{|z-1|=1\}$ to the line orthogonal to $\R$ through the 1 -- that is to the line $x=1$. Therefore the transformation $\hat T(z)=T(z)-1$ is a composition of M\"obius transformations taking these circles to the real and imaginary axes.
+	
+	We still need to confirm the interior of the region maps to the first quadrant. Take any point in the intersection of these circles -- say $\alpha=\frac{1}{2}+\frac{1}{2}i$ and look at its image:
+	\[\hat T(\alpha)=\frac{1}{2}+\frac{1}{2}i=\alpha\]
+	Thus we know that the region described maps to the first quadrant.
+	so not only is $\alpha$ in the first quadrant, it is (one of) the fixed points of $\hat T$.
+	
+	\brk
+	
+	The same process as above could be applied to show that there exists a M\"obius transformation that takes $\{|z-2i|<2\}\cap\{|z-1|<1\}$ to the upper half plane since these two regions still meet in right angles (look, for instance, at the origin). This was the only property of the region we had to use besides the general shape (being the intersection of two circles).
+	
+	For the last region parameterize the two circles: $x(t)=2\cos t+\sqrt{3}$, $y(t)=2\sin t$, and $x(s)=2\cos s-\sqrt{3}$, $y(s)=2\sin s$. The upper intersection point happens when $t=\frac{2\pi}{3}$ and $s=\frac{\pi}{3}$, but
+	\[\frac{y'(t)}{x'(t)}=-\cot t\]
+	and at $t=\frac{2\pi}{3}$, the slope of the tangent is $\sqrt{3}$. A similar calculation yields that the slope of the tangent to the other circle when $s=\frac{\pi}{3}$ is $-\sqrt{3}$ but since these are not orthogonal, there is no M\"obius transformation (read: angle preserving) that takes this region to the first quadrant.
+
+\section*{Problem 2}
+	\begin{spacing}{1}
+		\textbf{(Schlag 1.11)} Let $T(z)=\frac{az+b}{cz+d}$ be a M\"obius transformation.
+		\begin{itemize}
+			\item[(a)] Show that $T(\R_\infty)=\R_\infty$ iff we can choose $a,b,c,d\in\R$
+			\item[(b)] Find all $T$ such that $T(\mathbb{T})=\mathbb{T}$ where $\mathbb{T}=\{|z|=1\}$ is the unit circle.
+			\item[(c)] Find all $T$ for which $T(\mathbb{D})=\mathbb{D}$, the (open) unit disk.
+		\end{itemize}
+	\end{spacing}	
+	\noindent\hrulefill
+	
+	\subsubsection*{(a)}
+		Assume first that $a,b,c,d\in\R$. Then clearly if $r\in \R$, either $T(r)=\infty$ (if $r=\frac{-d}{c}$) or else $T(r)\in\R$ as a fractional linear combination of real values. So $T(\R_\infty)\subseteq\R_\infty$.
+		
+		By the same logic if $T^{-1}(w)=\frac{-dw+b}{cw-a}$, then for any $r\in\R_\infty$ we know $T^{-1}(r)\in\R_\infty$. Since $(T\circ T^{-1})|_{\R_\infty}=(T^{-1}\circ T)|_{\R_\infty}=\operatorname{Id}_{R_\infty}$, we can conclude that $T(\R_\infty)=\R_\infty$.
+		
+		Now given the tuple $(0,1,\infty)\in\R_\infty$, every M\"obius transformation is uniquely determined by the image of these points. If $T(\R_\infty)=\R_\infty$, we know that these images are (distinct!) $(r_1,r_2,r_3)\in(\R_\infty)^3$. Then we can write (if $r_i<\infty$)
+		\[T^{-1}=\frac{\alpha z-\alpha r_1}{z-r_3},\quad\text{where}\quad \alpha=\frac{r_2-r_3}{r_2-r_1}\in\R\quad\Rightarrow\quad T=\frac{z-\alpha r_1}{z-\alpha}\]
+		
+		Otherwise if $r_1=\infty,$
+		\[T^{-1}=\frac{r_2-r_3}{z-r_3}\quad\Rightarrow\quad T=\frac{r_3z+r_2-r_3}{z}\]
+		if $r_2=\infty$
+		\[T^{-1}=\frac{z-r_1}{z-r_3}\quad\Rightarrow\quad T=\frac{r_3z-r_1}{z-1}\]
+		and if $r_3=\infty$
+		\[T^{-1}=\frac{z-r_1}{r_2-r_1}\quad\Rightarrow\quad T=(r_2-r_1)z-r_1\]
+		
+		In any case, it is clear that $a,b,c,d$ can be taken to be in the reals.
+		
+		\subsubsection*{(b)}
+		\textit{Note: I use (c) below to prove the bulk of this problem, so it may do to read that first.}
+		
+		To reduce to the case of (c), simply consider where zero is being sent by $\hat T$. Consider the space $\hat{\C}\setminus\mathbb{T}$ and notice that there are two connected components (inside and outside the circle). Thus restricting the domain and codomain of $\hat T$ to this subspace, it is a bijective, bicontinuous map from two connected components to two connected components so must either fix both or swap them. This follows because the image of a connected component is connected and $\hat T$ is surjective.
+		
+		In the case that $T(0)\in\mathbb{D}$, then, $\hat T(\mathbb{D})=\mathbb{D}$ and we can proceed as below. Otherwise consider $\frac{1}{z}\circ \hat T=\frac{1}{\hat T}$, and $\frac{1}{\hat T}$ maps $0$ to $\mathbb{D}$ and proceed as below.
+		
+		Since these are the only possible cases we find that
+		\[T=e^{i\alpha}\frac{z-a}{1-\bar az},\qquad\text{or}\qquad T=e^{i\alpha}\frac{1-\bar az}{z-a}.\]
+		\subsubsection*{(c)}
+		Let $T$ be any map taking $\mathbb{D}$ to $\mathbb{D}$. Let $a\in\mathbb{D}$ be the point mapping to zero under $T$ (note the interior maps to the interior) and let $A$ be the map such that
+		\[A^{-1}=\frac{z-a}{1-\bar az}\]
+		which we have shown sends $\mathbb{D}$ to $\mathbb{D}$ and $A^{-1}(a)=0$. But then $T\circ A$ is a map sending $\mathbb{D}$ to $\mathbb{D}$ and fixing 0. 
+		
+		Notice that any M\"obius transformation is a continuous map with continuous inverse on $\hat\C$. Take any point $x\in\mathbb{T}=\partial\overline{\mathbb{D}}$ and a sequence $x_n\to x$ with $x_i\in\mathbb{D}$. Then by the continuity of $T$, $T(n_i)$ is a sequence in $\mathbb{D}$ converging to $T(x).$ Thus $T(x)\in\overline{\mathbb{D}}=\mathbb{D}\sqcup\mathbb{T}$. But since $x\not\in\mathbb{D}$, this gives us $T(x)\in\mathbb{T}$. A parallel argument gives us the same for $T^{-1}$, so any $T$ fixing the open unit disk fixes the boundary as well.
+		
+		But if $\hat T=T\circ A=\frac{az+b}{cz+d}$ we know automatically that $b=0$ and consider $\frac{1}{\hat T}=\frac{cz+d}{az}=\frac{c}{a}+\frac{d}{az}$. Note that this map should fix the unit circle. This is an inversion followed by a dilation and rotation followed by a translation, but this can only fix the unit circle if there is no translation -- that is if $c=0.$ So $\hat T=\frac{a}{d}z$.
+		
+		Consider when $|z|=1$, though, that $|\hat T(z)|=|\frac{a}{d}|=1$ so $\frac{a}{d}=e^{i\alpha}$ for some $0\le\alpha<2\pi.$
+		
+		But then $T=e^{i\alpha}\circ A^{-1}=e^{i\alpha}\frac{z-a}{1-\bar az}$ for some $a\in\mathbb{D}$ and $\alpha\in[0.2\pi)$. Therefore this describes all such maps $\mathbb{D}$ to $\mathbb{D}$.
+
+\section*{Problem 3}
+	\begin{spacing}{1}
+		Let $f\ne id$ be a M\"obius transformation with fixed points $z_1,z_2$ (set $z_1=z_2$ if it has only one fixed point). Show that either $f$ is conjugate to a rotation and there is a subsequence $f^{n_k}$ of the sequence of iterates that converge to the identity uniformly on $\hat\C$ or else the iterates $f^n$ converge to $z_1$ uniformly on compact subsets of $\hat\C\setminus\{z_2\}$ after perhaps relabeling $z_1$ and $z_2$ (the convergence is with respect to the chordal metric).
+	\end{spacing}	
+	\noindent\hrulefill
+	
+	Begin by considering any map $T$ with two fixed points $z_1\ne z_2$. Then the M\"obius transformation $A=\frac{z-z_1}{z-z_2}$ takes these points to zero and infinity, respectively and one easily sees that
+	\[\tilde T= A\circ T\circ A^{-1}\]
+	fixes zero and infinity. But then we know that if $\tilde T=\frac{az+b}{cz+d}$ that $c=b=0$, so $\tilde T=\frac{a}{d}z=kz$ for some $k\in\C$. 
+	
+	Consider first if $|k|<1$. Then take any compact set around 0 and notice that $|z|$ is bounded from above by some $\alpha\in\R_+$. But then notice that $\tilde T^n=k^nz$ and that (for \textit{any} $z$ in our set!)
+	\[d(0,\tilde T_n(z))=\frac{2|k^nz|}{1\cdot\sqrt{1+|k^n z|^2}}\le \frac{2\alpha|k|^n}{\sqrt{1}}1\]
+	where as $n\to\infty$ the right hand side $\to 0$. Since this was independent of choice of $z$, this gives us uniform convergence on our set.
+	
+	\brk
+	
+	Now assume that $|k|>1$ and then consider for all $z$ in a compact neighborhood of $\infty$ that $|z|>\alpha$ for some $\alpha\in\R_+$ and so
+	\[d(\infty, \tilde T_n(z))=\frac{1}{\sqrt{1+|k^nz|^2}}\le \frac{1}{\sqrt{1+\alpha^2|k|^{2n}}}\to 0\]
+	as $n\to\infty$. Again convergence is uniform since it was true regardless of choice of $z$.
+	
+	In either case, note that $\tilde T^n=A\circ T^n\circ A^{-1}$, so since we get that $\tilde T^n\to 0,\infty$ on compact subsets, this is the same as saying that $T^n$ converges to either $z_1$ or $z_2$, the constant maps.
+	
+	\brk
+	
+	If $|k|=1$ then $\tilde T$ is a rotation about zero (since it cannot be the identity). This we can break down into two subcases: write $k=e^{2\pi i\alpha}$ and if $\alpha=\frac{a}{b}\in\Q$ we know that $\{T^b,T^{2b},\dots\}=\{e^{2a\pi i},e^{4a\pi i},\dots\}=\{\operatorname{id},\operatorname{id},\dots\}$ is clearly a (uniformly) converging subsequence converging to the identity.
+	
+	If instead $\alpha$ is irrational, we use a number theoretic statement that says that for any $n\in\N$ there is some $\frac{p}{q}\in\Q$ with $0\le q\le n$ and\
+	\[\left|\alpha-\frac{p}{q}\right|\le\frac{1}{q(n+1)}\quad\Rightarrow\quad |q\alpha-p|\le\frac{1}{n+1}.\]
+	In other words, there is an integer multiple of $\alpha$ that gets it arbitrarily close to an integer. Therefore by increasing $n_i$ we can get a sequence $e^{2\pi i q_i\alpha}$ where the sequence is comprised of rotations where the angle of rotation converges to zero.
+	
+	That this is uniformly convergent relies on an interpretation of the chordal metric -- by pulling back to the Riemann sphere we see that radial rays from zero pull back to longitudinal lines through the poles. The distance between two such lines is maximal when at the equator which projects to the unit circle. In particular this gives us a finite bound on the distance between any two corresponding points on these rays and since the points on the unit circle converge as the angle converges, all the others converge at least as fast.
+	
+	\brk
+	
+	Finally consider the case when there is a single fixed point. Then let $A$ be any M\"obius transformation taking $z_1\mapsto 0$ and write $\tilde T=A\circ T\circ A^{-1}=\frac{az+b}{cz+d}.$ Then clearly $b=0$ and consider the solutions to
+	\[\frac{az}{cz+d}=z\quad\Rightarrow\quad z=0,z=\frac{a-d}{c}.\]
+	Since we want there to be a unique solution, however, say $c\ne 0$ and $a=d.$ But then by scaling/relabeling we get that 
+	\[\tilde T=\frac{z}{cz+1}\quad\Rightarrow\quad \tilde T^n=\frac{z}{(nc)z+1}\]
+	using the correspondence between iterates of M\"obius transformations and iterates of matrices and then we can compute for any $z$ in a compact neighborhood of 0, (say $|z|<\alpha$ again)
+	\[d(0,\tilde T^n(z))=\frac{2\left|\frac{z}{ncz+1}\right|}{\sqrt{1+\left|\frac{z}{ncz+1}\right|^2}}\le\frac{2\alpha}{|ncz+1|}\]
+	which clearly converges to zero as $n\to\infty$ but I can't tell how to show it converges \textit{uniformly.}
+	
+	If I could show this, this would exhaust the cases we need to consider, so we could conclude that the statement of the problem holds.
+
+\section*{Problem 4}
+	\begin{spacing}{1}
+		Fix $|a|<1$. Show that the M\"obius transformations $T(z)=\frac{z-a}{1-\bar az}$ satisfy
+		\[|T'(z)|=\frac{1-|T(z)|^2}{1-|z|^2}.\]
+		Show further that $T$ preserves the hyperbolic length of any curve $\gamma\in\mathbb{D}$ and that $T$ is an isometry for the hyperbolic metric of $\mathbb{D}$. Also show that every M\"obius transformation $S$ with $S(\mathbb{D})=\mathbb{H}$ is an isometry between the hyperbolic metrics of $\mathbb{D}$ and $\mathbb{H}.$
+	\end{spacing}	
+\noindent\hrulefill
+	
+	Assume first that $T(z)=\frac{z-a}{1-\bar az}$ as stated. Then we can compute using the quotient rule that
+	\[|T'(z)|=\left|\frac{(1-\bar az)-(z-a)(-\bar a)}{(1-\bar az)^2}\right|=\frac{|1-\bar az+\bar az-|a|^2|}{|1-\bar az|^2}=\frac{1-|a|^2}{|1-\bar az|^2}\]
+	where we use that $|a|<1$ to drop the modulus bars in the numerator. 
+	
+	Coming from the other side, notice that
+	\[1-|T(z)|^2=1-\left|\frac{z-a}{1-\bar az}\right|^2=\frac{1-|z|^2-|a|^2+|a|^2|z|^2}{|1-\bar az|^2}=\frac{(1-|a|^2)(1-|z|^2)}{|1-\bar az|^2}\]
+	and so
+	\[\frac{1-|T(z)|^2}{1-|z|^2}=\frac{1-|a|^2}{|1-\bar az|^2}=|T'(z)|\]
+	as desired.
+	
+	\brk
+	
+	Let $x,y\in\mathbb{D}$ and let $T$ as above and $w,z$ be the images of $x,y$ under $T$, respectively. Showing the statement hinges on the fact that curves from $w$ to $z$ are in bijection with curves from $x$ to $y$ by composing with either $T$ or $T^{-1}$. Now
+	\[d_{\mathbb{D}}(x,y)=\inf_{\gamma:x\leadsto y}\int_\gamma\frac{2}{1-|z|^2}\,\mathrm{d}z=\int_0^1\frac{2}{1-|\gamma(t)|^2}|\gamma'(t)|\,\mathrm{d}t.\]
+	
+	On the other hand we have (if $\gamma_\sigma=T^{-1}\circ\sigma(t)$ for each curve $\sigma$ in $\mathbb{D}$ from $z$ to $w$)
+	\begin{align*}
+		d_\mathbb{D}(w,z)&=\inf_{\sigma:w\leadsto z}\int_0^1\frac{2}{1-|\sigma(t)|^2}{|\sigma'(t)|}\,\mathrm{d}t\\
+		&=\inf_{\gamma_\sigma:x\leadsto y}\int_0^1\frac{2}{1-|T\circ\gamma_\sigma(t)|^2}|(T\circ \gamma_\sigma)'(t)|\,\mathrm{d}t\\
+		&=\inf_{\gamma_\sigma:x\leadsto y}\int_0^1\frac{2}{1-|T\circ\gamma_\sigma(t)|^2}|T'(\gamma_\sigma(t))||\gamma'(t)|\,\mathrm{d}t\\
+		&=\inf_{\gamma_\sigma:x\leadsto y}\int_0^1\frac{2}{1-|T\circ\gamma_\sigma(t)|^2}\frac{1-|T(\gamma_\sigma(t))|^2}{1-|\gamma_\sigma(t)|^2}|\gamma'(t)|\,\mathrm{d}t\\
+		&=\inf_{\gamma_\sigma:x\leadsto y}\int_0^1\frac{2}{1-|\gamma_\sigma(t)|^2}|\gamma'(t)|\,\mathrm{d}t\\
+		&=d_\mathbb{D}(x,y)
+	\end{align*}
+	proving the statement. Note that this same argument (without taking $\inf$) shows that $T$ is length-preserving.
+	
+	\brk
+	
+	Let $\hat T$ be any M\"obius transformation taking $\mathbb{D}\to\mathbb{H}$ as subsets of $\hat\C$. In particular, say that the triple $(a,b,c)\in\mathbb{D}^3$ maps to $(0,1,\infty)\in\R_\infty^3.$ But then let $A$ be the map $\mathbb{D}\to\mathbb{D}$ taking $(1,i,-1)\mapsto(a,b,c)$ and recall that this map is an isometry by the last part and the fact that a rotation is an isometry since it preserves distances from zero.
+	
+	Call $T=\hat T\circ A:\mathbb{D}\to\mathbb{H}$ and notice that it suffices to show that $T$ is an isometry. But we can write this map explicitly:
+	\[T=-i\frac{z-1}{z+1}.\]
+	Then we can compute
+	\[T'(z)=\frac{-2i}{(1+z)^2}\quad\Rightarrow\quad |(T\circ \gamma)'(t)|=\frac{2}{|1+\gamma(t)|^2}|\gamma'(t)|\]
+	and if $\gamma(t)=\gamma_x(t)+i\gamma_y(t)$
+	\[\Im T=\Im\left(\frac{-i|z|^2+i\bar z-iz+i}{|1+z|^2}\right)\]
+	So we have
+	\[\Im(T\circ\gamma)=\Im\left(\frac{-i\gamma_x^2-i\gamma_y^2+2\gamma_y+i}{(\gamma_x+1)^2+\gamma_y^2}\right)=\frac{1-|\gamma(t)|^2}{1+2\gamma_x+|\gamma|^2}=\frac{1-|\gamma(t)|^2}{1+\gamma+\bar\gamma+|\gamma|^2}=\frac{1-|\gamma(t)|^2}{|1+\gamma(t)|^2}\]
+	
+	But then putting this together we know that on $\mathbb{H}$ we have (by relaxing notation slightly and saying $\gamma=T^{-1}\circ\sigma$)
+	\begin{align*}
+		d_\mathbb{H}(z,w)&=\inf_{\sigma:z\leadsto w}\int_0^1\frac{1}{\Im \sigma}|\sigma'(t)|\,\mathrm{d}t\\
+		&=\inf_\gamma\int_0^1\frac{1}{\Im(T\circ\gamma)}|(T\circ\gamma)'(t)|\,\mathrm{d}t\\
+		&=\inf_\gamma\int_0^1\frac{|1+\gamma(t)|^2}{1-|\gamma(t)|^2}\frac{2}{|1+\gamma(t)|^2}|\gamma'(t)|\,\mathrm{d}t\\
+		&=\inf_\gamma\int_0^1\frac{2}{1-|\gamma(t)|^2}|\gamma'(t)|\,\mathrm{d}t\\
+		&=d_\mathbb{D}(x,y)
+	\end{align*}
+	as desired.
+
+\section*{Problem 5}
+	\begin{spacing}{1}
+		The \textit{curvature} of a metric $ds^2=\sigma^2(dx^2+dy^2)$ is defined by 
+		\[K(z)=\frac{-1}{\sigma(z)^2}\Delta\log\sigma(z)\]
+		where $\Delta=\frac{\partial^2}{\partial x^2}+\frac{\partial^2}{\partial y^2}$ is the Laplace operator. Find the curvatures of the Euclidean, chordal, and hyperbolic metric (of $\C,\hat\C,$ and $\mathbb{D}$).
+	\end{spacing}	
+\noindent\hrulefill	
+	
+	This computation is easy for the Euclidean case since $\sigma(z)=1$. Thus $\log(\sigma(z))=0$ and so $K=0$ in this case.
+	
+	For the hyperbolic case, $\sigma(z)=\frac{2}{1-|z|^2}$. Then we can compute
+	\begin{align*}
+		\frac{\partial^2}{\partial x^2}\log\left(\frac{2}{1-x^2-y^2}\right)&=\pd{x}\frac{2x}{1-x^2-y^2}\\
+		&=\frac{2+2x^2-2y^2}{(1-|z|^2)^2}
+	\end{align*}
+	and since this function is symmetric in $y$ and $x$, we know that $\frac{\partial^2}{\partial y^2}\log(\sigma)=\frac{2+2y^2-2x^2}{(1-|z|^2)^2}$ so
+	\[\Delta\log(\sigma)=\frac{4+2y^2-2x^2+2x^2-2y^2}{(1-|z|^2)^2}=\frac{4}{(1-|z|^2)^2}=\sigma^2.\]
+	From here it follows that
+	\[K(z)=\frac{-1}{\sigma(z)^2}\Delta\log\sigma(z)=-1.\]
+	
+	Finally the density function for the chordal metric is $\rho(z)=\frac{2}{1+|z|^2}$, so
+	\begin{align*}
+		\frac{\partial^2}{\partial x^2}\log\rho(z)&=\pd{x}\frac{2x}{1+|z|^2}
+		&=\frac{-2+2x^2-2y^2}{(1+|z|^2)^2}
+	\end{align*}
+	so
+	\[\Delta\log\rho=-\frac{4}{(1+|z|^2)^2}=-\sigma^2\]
+	so finally $K(z)=1$.
+
+\end{document}
